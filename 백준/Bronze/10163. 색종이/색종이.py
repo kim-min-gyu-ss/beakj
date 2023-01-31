@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 result = [[0 for i in range(1001)] for j in range(1001)]
 a = int(input())
 for i in range(1, a + 1):
