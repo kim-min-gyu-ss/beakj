@@ -1,39 +1,41 @@
-def back(n,lst,c_lst):
+import sys
+input = sys.stdin.readline
+
+def back(n,lst,aa,bb,cc,dd,money):
     global mn, y_lst
-    if c_lst[4] >= mn:
+
+    if money >= mn:
         return
-    if n == N:
+
+    if n > N:
+        # if aa >= a and bb >= b and cc >= c and dd >= d:
+        #     if mn > money:
+        #         mn = money
+        #         y_lst = lst
         return
-    if c_lst[0] >= a and c_lst[1] >= b and c_lst[2] >= c and c_lst[3] >= d:
-        if mn > c_lst[4]:
-            mn = c_lst[4]
-            y_lst = lst[:]
+
+    if aa >= a and bb >= b and cc >= c and dd >= d:
+        if mn > money:
+            mn = money
+            y_lst = lst
         return
+
     for i in range(n,N):
         if not visited[i]:
             visited[i] = True
-            c_lst[0] += yachae[i][0]
-            c_lst[1] += yachae[i][1]
-            c_lst[2] += yachae[i][2]
-            c_lst[3] += yachae[i][3]
-            c_lst[4] += yachae[i][4]
-            lst.append(i+1)
-            back(i,lst, c_lst)
-            c_lst[0] -= yachae[i][0]
-            c_lst[1] -= yachae[i][1]
-            c_lst[2] -= yachae[i][2]
-            c_lst[3] -= yachae[i][3]
-            c_lst[4] -= yachae[i][4]
-            lst.pop()
+            e,f,g,h,l = yachae[i]
+            back(i,lst+[i+1],aa+e,bb+f,cc+g,dd+h,money+l)
             visited[i] = False
+
 N = int(input())
 a,b,c,d = map(int,input().split())
-yachae = [list(map(int,input().split()))for _ in range(N)]
-mn = 500*N
+yachae = []
+for _ in range(N):
+    yachae.append(list(map(int,input().split())))
+mn = 1000000000
 visited = [False for _ in range(N)]
 y_lst = []
-c_lst = [0,0,0,0,0]
-back(0,[], c_lst)
+back(0,[],0,0,0,0,0)
 
 if y_lst:
     print(mn)
